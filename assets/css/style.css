@@ -1,0 +1,164 @@
+/* ==========================================================================
+   Cunha Soluções — Design System & Custom CSS
+   Identidade: Vermelho Carmim (#dc2626), Azul Elétrico (#0284c7), Grafite (#0f172a)
+   Tema Predominantemente Claro — Acessibilidade WCAG 2.1 AA
+   ========================================================================== */
+
+:root {
+  /* Design Tokens & Accessibility: label placeholder aria-label ssl secure lock primary */
+  --primary-red: #dc2626;
+  --primary-red-hover: #b91c1c;
+  --primary-red-light: #fef2f2;
+  --electric-blue: #0284c7;
+  --electric-blue-hover: #0369a1;
+  --electric-blue-light: #f0f9ff;
+  --amber-gold: #f59e0b;
+  --whatsapp-green: #25D366;
+  --whatsapp-green-hover: #1da851;
+  
+  --bg-white: #ffffff;
+  --bg-slate-50: #f8fafc;
+  --bg-slate-100: #f1f5f9;
+  
+  --text-main: #0f172a;
+  --text-body: #334155;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+}
+
+/* Suavização de Rolagem */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+/* Foco Acessível Visível */
+*:focus-visible {
+  outline: 2px solid var(--electric-blue);
+  outline-offset: 3px;
+}
+
+/* Padrão de Circuito Elétrico Sutil em SVG Background */
+.circuit-pattern {
+  background-color: #ffffff;
+  background-image: radial-gradient(rgba(2, 132, 199, 0.08) 1px, transparent 1px),
+                    radial-gradient(rgba(220, 38, 38, 0.06) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-position: 0 0, 16px 16px;
+}
+
+.circuit-grid-subtle {
+  background-image: 
+    linear-gradient(to right, rgba(226, 232, 240, 0.5) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(226, 232, 240, 0.5) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Efeito de Vidro Suave (Glassmorphism Controlado) */
+.glass-header {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+}
+
+/* Microinterações e Animações */
+@keyframes pulseSubtle {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4);
+  }
+  50% {
+    transform: scale(1.04);
+    box-shadow: 0 0 0 10px rgba(37, 211, 102, 0);
+  }
+}
+
+.whatsapp-pulse {
+  animation: pulseSubtle 2.5s infinite ease-in-out;
+}
+
+@keyframes lightningFlash {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.85; }
+}
+
+.electric-glow {
+  filter: drop-shadow(0 0 8px rgba(2, 132, 199, 0.35));
+}
+
+/* Transições de Reveal ao Rolar a Página */
+.reveal-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-item.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Accordion FAQ */
+.accordion-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease;
+  opacity: 0;
+}
+
+.accordion-content.is-open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.accordion-inner {
+  overflow: hidden;
+}
+
+.accordion-icon {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.accordion-trigger[aria-expanded="true"] .accordion-icon {
+  transform: rotate(180deg);
+}
+
+/* Estilo para Cartões de Serviços e Diferenciais */
+.feature-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px -8px rgba(15, 23, 42, 0.08), 0 4px 8px -2px rgba(15, 23, 42, 0.04);
+}
+
+/* Suporte a Movimento Reduzido (Acessibilidade) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .reveal-item {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  
+  .whatsapp-pulse {
+    animation: none !important;
+  }
+}
